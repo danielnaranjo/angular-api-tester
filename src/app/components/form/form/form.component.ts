@@ -20,7 +20,7 @@ export class FormComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private apiService: ApiService) {
     this.testerForm = this.fb.group({
-      apiUrl: ['https://uellapidev.newton-development.com/v2/users/me', Validators.required],
+      apiUrl: ['', Validators.required],
       apiToken: ['', Validators.required],
       apiBody: [''],
       apiMethod: ['get']
@@ -29,7 +29,6 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.disabled = true;
-    //this.testerForm.controls.apiMethod.setValue('get');
     this.formChange();
   }
 
