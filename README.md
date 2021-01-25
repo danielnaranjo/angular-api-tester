@@ -1,4 +1,4 @@
-# ApiTester
+# Angular API Tester
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.3.
 
@@ -20,3 +20,4 @@ ng serve --port=8080 --open=true
 Navigate to http://localhost:8080
 
 ### Questions!?
+Twitter [@naranjodaniel](http://www.twitter.com/naranjodaniel)
