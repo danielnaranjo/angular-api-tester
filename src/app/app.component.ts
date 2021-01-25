@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'api-tester';
+  data: any;
+
+  returnRequest(event: any) {
+    this.data = event;
+  }
 }

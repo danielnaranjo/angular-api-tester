@@ -1,0 +1,16 @@
+<form [formGroup]="testerForm" (change)="formChange()">
+    <input type="text" formControlName="apiUrl" placeholder="API" /><br />
+    <textarea formControlName="apiToken" placeholder="TOKEN" rows="10"></textarea
+    ><br />
+    <select formControlName="apiMethod">
+        <option value="get">GET</option>
+        <option value="post">POST</option>
+        <option value="put">PUT</option>
+        <option value="patch">PATCH</option>
+        <option value="delete">DELETE</option>
+    </select><br />
+    <textarea *ngIf="!isGET" formControlName="apiBody" placeholder="BODY" rows="10"></textarea
+        ><br />
+    <button (click)="sendData()" [disabled]="disabled">Probar servicio API</button>
+    <!-- <pre *ngIf="data">{{ data | json }}</pre> -->
+</form>
