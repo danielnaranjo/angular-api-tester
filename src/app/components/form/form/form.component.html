@@ -1,5 +1,6 @@
 <form [formGroup]="testerForm" (change)="formChange()">
     <input type="text" formControlName="apiUrl" placeholder="API" /><br />
+    <input type="text" formControlName="apiTenant" placeholder="TENANT" /><br />
     <textarea formControlName="apiToken" placeholder="TOKEN" rows="10"></textarea
     ><br />
     <select formControlName="apiMethod">

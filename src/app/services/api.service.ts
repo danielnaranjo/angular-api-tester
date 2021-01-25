@@ -11,8 +11,8 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  serverRequest(methodService: string, apiService: string, userToken: string, body?: any): Observable<[]> {
-    const headers = {
+  serverRequest(methodService: string, apiService: string, userToken: string, body?: any, apiTenant?: string): Observable<[]> {
+    let setHeaders = {
       headers: {
         "content-Type": "application/json; charset=utf-8",
         accept: "application/json",
@@ -21,8 +21,11 @@ export class ApiService {
         // tenant: "uell",
       }
     };
-    console.log(methodService, apiService, userToken, headers, body);
-    return this.http.request<[]>(methodService, apiService, headers).pipe(
+    if (apiTenant) {
+      setHeaders.headers['tenant']  = apiTenant;
+    }
+    console.log(methodService, apiService, userToken, setHeaders, body);
+    return this.http.request<[]>(methodService, apiService, setHeaders).pipe(
       timeout(6000),
       retry(3),
       catchError(

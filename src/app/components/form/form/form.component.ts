@@ -23,7 +23,8 @@ export class FormComponent implements OnInit {
       apiUrl: ['', Validators.required],
       apiToken: ['', Validators.required],
       apiBody: [''],
-      apiMethod: ['get']
+      apiMethod: ['get'],
+      apiTenant: ['']
     });
   }
 
@@ -46,23 +47,24 @@ export class FormComponent implements OnInit {
     const apiToken = this.testerForm.controls.apiToken.value;
     const apiBody =this.testerForm.controls.apiBody.value;
     const apiMethod = this.testerForm.controls.apiMethod.value;
+    const apiTenant = this.testerForm.controls.apiTenant.value;
 
     switch (apiMethod) {
       case 'get':
-        this.requestGet(apiUrl, apiToken);
+        this.requestGet(apiUrl, apiToken, apiTenant);
         break;
       case 'post':
       case 'patch':
       case 'put':
-        this.requestBody(apiMethod, apiUrl, apiToken, apiBody);
+        this.requestBody(apiMethod, apiUrl, apiToken, apiBody, apiTenant);
       break;
       default:
         break;
     }
   }
 
-  private requestGet(apiUrl: string, apiToken: string) {
-    this.apiService.serverRequest('get', apiUrl, apiToken).subscribe(
+  private requestGet(apiUrl: string, apiToken: string, apiTenant?: string) {
+    this.apiService.serverRequest('get', apiUrl, apiToken, null, apiTenant).subscribe(
       (result: any) => {
         this.data = result;
         this.returnRequest.emit(this.data);
@@ -76,11 +78,12 @@ export class FormComponent implements OnInit {
     );
   }
 
-  private requestBody(apiMethod: string, apiUrl: string, apiToken: string, apiBody?: any) {
-    this.apiService.serverRequest(apiMethod, apiUrl, apiToken, apiBody).subscribe(
+  private requestBody(apiMethod: string, apiUrl: string, apiToken: string, apiBody?: any, apiTenant?: string) {
+    this.apiService.serverRequest(apiMethod, apiUrl, apiToken, apiBody, apiTenant).subscribe(
       (result: any) => {
         this.data = result;
-        this.returnRequest.emit(this.data);
+        const curlMessage = `response ${this.data}`;
+        this.returnRequest.emit(curlMessage);
       },
       error => {
         console.error("ERROR: ", error);
