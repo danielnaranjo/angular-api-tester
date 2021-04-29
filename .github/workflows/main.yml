@@ -1,4 +1,4 @@
-name: angular-api-tester
+name: Docker Image CI
 on:
   push:
     branches: [ master ]
