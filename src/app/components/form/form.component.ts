@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { tap } from 'rxjs';
+import { catchError, Observable, retry, tap } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -90,40 +90,38 @@ export class FormComponent implements OnInit {
   private requestGet(apiUrl: string, apiToken: string) {
     this.apiService.serverRequest('get', apiUrl, apiToken, null)
     .pipe(
-      tap((d) => console.log('tap',d)),
+      retry(1),
+      // @ts-ignore
+      catchError((err: any, caught: Observable<any>) => {
+        console.error("ERROR: ", err);
+        this.errors = err.message;
+        this.httpStatusCode = err.status;
+        this.returnRequest.emit(this.errors);
+      })
     )
-    .subscribe(
-      (result: any) => {
+    .subscribe((result: any) => {
         this.data = result;
         this.returnRequest.emit(this.data);
-      },
-      // error => {
-      //   console.error("ERROR: ", error);
-      //   this.errors = error.message;
-      //   this.httpStatusCode = error.status;
-      //   this.returnRequest.emit(this.errors);
-      // }
-    );
+      });
   }
 
   private requestBody(apiMethod: string, apiUrl: string, apiToken: string, apiBody?: any) {
     this.apiService.serverRequest(apiMethod, apiUrl, apiToken, apiBody)
     .pipe(
-      tap((d) => console.log('tap',d)),
+      retry(1),
+      // @ts-ignore
+      catchError((err: any, caught: Observable<any>) => {
+        console.error("ERROR: ", err);
+        this.errors = err.message;
+        this.httpStatusCode = err.status;
+        this.returnRequest.emit(this.errors);
+      })
     )
-    .subscribe(
-      (result: any) => {
+    .subscribe((result: any) => {
         this.data = result;
         const curlMessage = `response ${this.data}`;
         this.returnRequest.emit(curlMessage);
-      },
-      // error => {
-      //   console.error("ERROR: ", error);
-      //   this.errors = error.message;
-      //   this.httpStatusCode = error.status;
-      //   this.returnRequest.emit(this.errors);
-      // }
-    );
+      });
   }
 
 }

@@ -16,7 +16,7 @@ export class ApiService {
         "content-Type": "application/json; charset=utf-8",
         accept: "application/json",
         //Authorization: `Bearer ${userToken}`,
-        "access-control-allow-origin": "*",
+        "Access-Control-Allow-Origin": "*",
       }
     };
     // console.log(methodService, apiService, userToken, setHeaders, body);
@@ -27,12 +27,12 @@ export class ApiService {
         // @ts-ignore
         (err: any, caught: Observable<any>): ObservableInput<any> => {
           if (err instanceof TimeoutError) {
-            console.error('[timeout]', 'Error de timeout', err);
+            console.error('[timeout]', err);
           }
           if (err.status === 400 || err.status === 0 || err.status === 403) {
-            console.error('[400/403]', 'Error de Validación de datos', err.status);
+            console.error('[400/403]', err.status);
           } else if (err.status === 429) {
-            console.error('[429]', 'Has sido bloqueado', 'Volver');
+            console.error('[429]');
           } else if (err.status === 500) {
             if (err.error && err.error.message) {
               console.error('[ServerError]', err.error.message);
@@ -41,9 +41,9 @@ export class ApiService {
             } else {
               console.error('[ServerError]', `unknown error from server `);
             }
-            console.error('[500]', 'Error de servidor', 'Volver a intentar');
+            console.error('[500]');
           } else if (err.status === 401) {
-            console.log('[401]', 'Refresh token vencido');
+            console.log('[401]');
           } else {
             if (err.error && err.error.message) {
               console.error('[NA]', 'ERROR MSG 1: ', err.error.message);
