@@ -48,7 +48,7 @@ export class FormComponent implements OnInit {
   constructor(private fb: FormBuilder, private apiService: ApiService) {
     this.testerForm = this.fb.group({
       apiUrl: ['https://', Validators.required],
-      apiToken: ['', Validators.required],
+      apiToken: [''],
       apiBody: [''],
       apiMethod: ['get'],
     });
@@ -93,7 +93,7 @@ export class FormComponent implements OnInit {
       retry(1),
       // @ts-ignore
       catchError((err: any, caught: Observable<any>) => {
-        console.error("ERROR: ", err);
+        //console.error("ERROR: ", err);
         this.errors = err.message;
         this.httpStatusCode = err.status;
         this.returnRequest.emit(this.errors);
@@ -111,7 +111,7 @@ export class FormComponent implements OnInit {
       retry(1),
       // @ts-ignore
       catchError((err: any, caught: Observable<any>) => {
-        console.error("ERROR: ", err);
+        //console.error("ERROR: ", err);
         this.errors = err.message;
         this.httpStatusCode = err.status;
         this.returnRequest.emit(this.errors);
