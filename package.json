@@ -5,7 +5,10 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development"
+    "watch": "ng build --watch --configuration development",
+    "docker": "docker build -t danielnaranjo/api-tester:latest .",
+    "setup": "npm install",
+    "dev": "ng serve --ssl true  --ssl-cert ssl/localhost.crt --ssl-key \"ssl/localhost.key\" --open=true --port=4100"
   },
   "private": true,
   "dependencies": {
