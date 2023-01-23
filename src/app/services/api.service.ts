@@ -11,16 +11,18 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   serverRequest(methodService: string, apiService: string, userToken: string, body?: any): Observable<[]> {
-    let setHeaders = {
-      headers: {
+    let setOptions: any = {};
+    if (body) {
+      setOptions.body = body;
+    }
+    setOptions.headers = {
         "Content-Type": "application/json; charset=utf-8",
         accept: "application/json",
         // Authorization: `Bearer ${userToken}`,
         "Access-Control-Allow-Origin": "*",
-      }
     };
-    // console.log(methodService, apiService, userToken, setHeaders, body);
-    return this.http.request<[]>(methodService, apiService, setHeaders).pipe(
+    console.log(methodService, apiService, userToken, setOptions, body);
+    return this.http.request<[]>(methodService, apiService, setOptions).pipe(
       timeout(6000),
       retry(1),
       catchError(

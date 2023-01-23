@@ -100,9 +100,11 @@ export class FormComponent implements OnInit {
       })
     )
     .subscribe((result: any) => {
+      if (result !== undefined) {
         this.data = result;
         this.returnRequest.emit(this.data);
-      });
+      }
+    });
   }
 
   private requestBody(apiMethod: string, apiUrl: string, apiToken: string, apiBody?: any) {
@@ -118,10 +120,12 @@ export class FormComponent implements OnInit {
       })
     )
     .subscribe((result: any) => {
+      if (result !== undefined) {
         this.data = result;
-        const curlMessage = `response ${this.data}`;
+        const curlMessage = JSON.stringify(this.data);
         this.returnRequest.emit(curlMessage);
-      });
+      }
+    });
   }
 
 }

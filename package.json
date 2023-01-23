@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "docker": "docker build -t danielnaranjo/api-tester:latest .",
+    "docker:build": "docker build -t danielnaranjo/api-tester:latest .",
+    "docker:run": "docker run --name apitester -d -p 8080:80 danielnaranjo/api-tester",
     "setup": "npm install",
     "dev": "ng serve --ssl true  --ssl-cert ssl/localhost.crt --ssl-key \"ssl/localhost.key\" --open=true --port=4100"
   },
