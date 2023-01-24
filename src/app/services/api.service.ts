@@ -18,9 +18,11 @@ export class ApiService {
     setOptions.headers = {
         "Content-Type": "application/json; charset=utf-8",
         accept: "application/json",
-        // Authorization: `Bearer ${userToken}`,
-        "Access-Control-Allow-Origin": "*",
     };
+
+    if (userToken) {
+      setOptions.headers.Authorization = `Bearer ${userToken}`;
+    }
     console.log(methodService, apiService, userToken, setOptions, body);
     return this.http.request<[]>(methodService, apiService, setOptions).pipe(
       timeout(6000),
@@ -37,7 +39,7 @@ export class ApiService {
               console.error('[0]', err.message);
               break;
             case 400:
-              console.error('[400]', err.message);
+              console.error('[400]', err.message, err);
               break;
             case 401:
               console.error('[401]', err.message);

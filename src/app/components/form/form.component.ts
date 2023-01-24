@@ -7,7 +7,7 @@ import { ApiService } from 'src/app/services/api.service';
   selector: 'tester-form',
   template: `
   <form [formGroup]="testerForm" (change)="formChange()">
-      <input type="text" formControlName="apiUrl" placeholder="API URL" /><br />
+      <input type="text" formControlName="apiUrl" placeholder="API URL" />
       <textarea formControlName="apiToken" placeholder="TOKEN" rows="10"></textarea
       ><br />
       <select formControlName="apiMethod">
@@ -47,9 +47,11 @@ export class FormComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private apiService: ApiService) {
     this.testerForm = this.fb.group({
-      apiUrl: ['https://', Validators.required],
+      apiUrl: [
+        'https://localhost:9000/auth/login'
+        , Validators.required],
       apiToken: [''],
-      apiBody: [''],
+      apiBody: [``],
       apiMethod: ['get'],
     });
   }
